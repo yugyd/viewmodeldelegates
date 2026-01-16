@@ -5,12 +5,12 @@ Architecture for Android applications in Kotlin using the MVVM pattern.**
 
 - **Delegation-friendly**: solves the problem of oversized ViewModels
 - **Structured**, uses the UDF (Unidirectional Data Flow) approach
-- **Modern**, Jetpack Compose–friendly
-- **Testable and predictable**: everything is built around State and the JVM, with minimal Android
-  dependencies
-- **Simple**: minimal code required for implementation and a basic tech stack
 - **Performant**: most of the code runs on the JVM without Android dependencies, and modules build
   faster
+- **Testable and predictable**: everything is built around State and the JVM, with minimal Android
+  dependencies
+- **Modern**, Jetpack Compose–friendly
+- **Simple**: minimal code required for implementation and a basic tech stack
 
 ## Stack
 
@@ -166,6 +166,9 @@ class LoadDataViewModelDelegate(
 - State updates are explicit and isolated via `updateState { }`.
 - Each delegate handles a single event (returns `true` if handled, `false` otherwise).
 - Delegates are pure Kotlin classes (no Android dependencies).
+- Delegates encapsulate ViewModel and UseCase/Interactor logic.
+- To reuse logic or store local state (e.g., a Job), you can use SharedDelegates, which can be
+  attached to different ViewModelDelegates. Ensure a single instance via DI.
 
 ---
 
@@ -203,6 +206,11 @@ fun buildSampleBinder(): SampleBinder {
 - Kotlin delegation `by factory.create(...)` avoids boilerplate while still exposing a typed
   `SampleViewModel` interface.
 - Delegates are composed without inheritance.
+- You can set `autoInit = false` and trigger init events manually if needed; this is also useful for
+  mocks in tests.
+- Logger can be customized or disabled (null) for production.
+- ViewModel name is useful for logging.
+- `DefaultViewModelFactory` can be wrapped in DI framework factories.
 
 ---
 
@@ -225,7 +233,11 @@ data class Model(
 }
 ```
 
-**Why:** UI model can differ from domain state (formatting, UI flags, string resources, etc.).
+**Why:**
+
+- UI model can differ from domain state (formatting, UI flags, string resources, etc.).
+- Use a wrapper for `NavigationState` annotated with `@Immutable` to eliminate mapping and make the
+  code simpler.
 
 ---
 
