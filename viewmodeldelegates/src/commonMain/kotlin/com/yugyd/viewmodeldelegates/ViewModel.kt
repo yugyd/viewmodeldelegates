@@ -1,9 +1,9 @@
 package com.yugyd.viewmodeldelegates
 
-import androidx.annotation.MainThread
+import com.yugyd.viewmodeldelegates.annotation.MainThread
 import kotlinx.coroutines.flow.StateFlow
 
-interface JvmViewModel<in Event : Any, State : Any> {
+interface ViewModel<in Event : Any, State : Any> {
 
     val state: StateFlow<State>
 

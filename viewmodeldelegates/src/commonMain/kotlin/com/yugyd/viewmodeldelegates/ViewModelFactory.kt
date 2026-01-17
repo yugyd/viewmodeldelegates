@@ -13,5 +13,5 @@ interface ViewModelFactory {
         mainCoroutineDispatcher: CoroutineDispatcher = Dispatchers.Main.immediate,
         logger: ViewModelLogger? = null,
         name: String? = null,
-    ): JvmViewModel<Event, State>
+    ): ViewModel<Event, State>
 }

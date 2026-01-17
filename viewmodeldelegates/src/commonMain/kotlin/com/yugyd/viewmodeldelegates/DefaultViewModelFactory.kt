@@ -12,7 +12,7 @@ class DefaultViewModelFactory : ViewModelFactory {
         mainCoroutineDispatcher: CoroutineDispatcher,
         logger: ViewModelLogger?,
         name: String?,
-    ): JvmViewModel<Event, State> = DefaultViewModelDelegatesImpl(
+    ): ViewModel<Event, State> = DefaultViewModelDelegatesImpl(
         initialState = initialState,
         viewModelDelegates = viewModelDelegates,
         initEvents = initEvents,

@@ -1,11 +1,11 @@
 package com.yugyd.viewmodeldelegates.sample.ui.home.domain
 
-import com.yugyd.viewmodeldelegates.JvmViewModel
+import com.yugyd.viewmodeldelegates.ViewModel
 import com.yugyd.viewmodeldelegates.ViewModelDelegate
 import com.yugyd.viewmodeldelegates.sample.ui.home.domain.HomeViewModel.Event
 import com.yugyd.viewmodeldelegates.sample.ui.home.domain.HomeViewModel.State
 
-interface HomeViewModel : JvmViewModel<Event, State> {
+interface HomeViewModel : ViewModel<Event, State> {
 
     sealed interface Event {
         object LoadData : Event

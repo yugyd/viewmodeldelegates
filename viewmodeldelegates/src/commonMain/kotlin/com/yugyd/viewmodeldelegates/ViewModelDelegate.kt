@@ -1,6 +1,6 @@
 package com.yugyd.viewmodeldelegates
 
-import androidx.annotation.MainThread
+import com.yugyd.viewmodeldelegates.annotation.MainThread
 import kotlinx.coroutines.CoroutineScope
 
 interface ViewModelDelegate<Event : Any, State : Any> {
@@ -10,6 +10,6 @@ interface ViewModelDelegate<Event : Any, State : Any> {
         event: Event,
         viewModel: ViewModelDelegates<Event, State>,
         scope: CoroutineScope,
-        @MainThread getState: () -> State,
+        getState: () -> State,
     ): Boolean
 }

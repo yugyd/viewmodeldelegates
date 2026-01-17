@@ -1,7 +1,7 @@
 package com.yugyd.viewmodeldelegates.sample.ui.home.di
 
 import com.yugyd.viewmodeldelegates.DefaultViewModelFactory
-import com.yugyd.viewmodeldelegates.JvmViewModel
+import com.yugyd.viewmodeldelegates.ViewModel
 import com.yugyd.viewmodeldelegates.ViewModelLogger
 import com.yugyd.viewmodeldelegates.sample.ui.home.domain.HomeViewModel
 import com.yugyd.viewmodeldelegates.sample.ui.home.domain.HomeViewModel.Event
@@ -39,7 +39,7 @@ fun buildHomeBinder(): HomeBinder {
     )
 
     val viewModel = object : HomeViewModel,
-        JvmViewModel<Event, State> by DefaultViewModelFactory().create(
+        ViewModel<Event, State> by DefaultViewModelFactory().create(
             initialState = State(arguments = arguments),
             viewModelDelegates = delegates,
             initEvents = setOf(Event.LoadData),

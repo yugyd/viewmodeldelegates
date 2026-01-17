@@ -17,7 +17,7 @@ abstract class ViewModelDelegates<in Event : Any, State : Any>(
     private val logger: ViewModelLogger? = null,
     private val name: String? = null,
     private val initEvents: Set<Event> = emptySet(),
-) : JvmViewModel<Event, State> {
+) : ViewModel<Event, State> {
 
     private val _state = MutableStateFlow(initialState)
     final override val state: StateFlow<State> = _state.asStateFlow()
