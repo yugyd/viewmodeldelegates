@@ -9,10 +9,12 @@ import com.yugyd.viewmodeldelegates.ui.ModelViewModelBinder
 class HomeBinder(
     private val viewModel: HomeViewModel,
     mapper: HomeMapper,
+    dispatchersProvider: DispatchersProvider,
 ) : ModelViewModelBinder<Event, State, Model>(
     viewModel = viewModel,
     initialModel = Model(),
     stateToModelMapper = mapper,
+    mainImmediateCoroutineDispatcher = dispatchersProvider.main,
 ) {
 
     fun onActionClicked() {

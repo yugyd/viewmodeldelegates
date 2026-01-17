@@ -3,7 +3,6 @@ package com.yugyd.viewmodeldelegates.ui
 import androidx.annotation.CallSuper
 import com.yugyd.viewmodeldelegates.ViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.map
@@ -13,8 +12,8 @@ abstract class ModelViewModelBinder<Event : Any, State : Any, Model : Any>(
     private val viewModel: ViewModel<Event, State>,
     stateToModelMapper: StateToModelMapper<State, Model>,
     initialModel: Model,
-    mainCoroutineDispatcher: CoroutineDispatcher = Dispatchers.Main.immediate,
-) : ViewModelBinder(mainCoroutineDispatcher = mainCoroutineDispatcher) {
+    mainImmediateCoroutineDispatcher: CoroutineDispatcher,
+) : ViewModelBinder(mainImmediateCoroutineDispatcher = mainImmediateCoroutineDispatcher) {
 
     val model: StateFlow<Model> = viewModel.state
         .map(stateToModelMapper::map)

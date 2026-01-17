@@ -1,50 +1,44 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlinMultiplatform)
+    alias(libs.plugins.androidKmpLibrary)
+    alias(libs.plugins.android.lint)
     alias(libs.plugins.maven.publish)
 }
 
 group = ARTIFACT_GROUP
 version = ARTIFACT_VERSION
 
-android {
-    namespace 'com.yugyd.viewmodeldelegates.ui'
-    compileSdk {
-        version = release(36)
+kotlin {
+    androidLibrary {
+        namespace = "com.yugyd.viewmodeldelegates.ui"
+        compileSdk = 36
+        minSdk = 24
     }
 
-    defaultConfig {
-        minSdk 24
+    iosX64()
+    iosArm64()
+    iosSimulatorArm64()
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles "consumer-rules.pro"
-    }
+    sourceSets {
+        commonMain {
+            dependencies {
+                implementation(project(":viewmodeldelegates"))
 
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+                // Kotlin
+                implementation(libs.kotlin.stdlib)
+                implementation(libs.coroutines)
+
+                // Lifecycle
+                implementation libs.androidx.lifecycle.viewmodel
+            }
+        }
+
+        commonTest {
+            dependencies {
+                implementation(libs.kotlin.test)
+            }
         }
     }
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_11
-        targetCompatibility JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = '11'
-    }
-}
-
-dependencies {
-    implementation(project(":viewmodeldelegates"))
-
-    // Lifecycle
-    implementation libs.lifecycle.viewmodel.ktx
-
-    // Test
-    testImplementation libs.junit
-    androidTestImplementation libs.androidx.junit
-    androidTestImplementation libs.androidx.espresso.core
 }
 
 mavenPublishing {

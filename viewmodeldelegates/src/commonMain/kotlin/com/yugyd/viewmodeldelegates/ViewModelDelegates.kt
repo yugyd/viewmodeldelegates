@@ -2,7 +2,6 @@ package com.yugyd.viewmodeldelegates
 
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.cancel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,7 +11,7 @@ import kotlinx.coroutines.flow.update
 
 abstract class ViewModelDelegates<in Event : Any, State : Any>(
     initialState: State,
-    mainCoroutineDispatcher: CoroutineDispatcher = Dispatchers.Main.immediate,
+    mainImmediateCoroutineDispatcher: CoroutineDispatcher,
     private val eventDelegates: Set<ViewModelDelegate<Event, State>>,
     private val logger: ViewModelLogger? = null,
     private val name: String? = null,
@@ -29,7 +28,7 @@ abstract class ViewModelDelegates<in Event : Any, State : Any>(
     private val isLoggerEnabled: Boolean = name != null && logger != null
 
     private val viewModelScope: CoroutineScope = CoroutineScope(
-        SupervisorJob() + mainCoroutineDispatcher,
+        SupervisorJob() + mainImmediateCoroutineDispatcher,
     )
 
     init {

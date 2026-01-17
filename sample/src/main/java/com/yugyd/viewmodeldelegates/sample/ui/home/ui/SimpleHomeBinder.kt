@@ -7,9 +7,10 @@ import com.yugyd.viewmodeldelegates.ui.StateViewModelBinder
 
 class SimpleHomeBinder(
     private val viewModel: HomeViewModel,
-) : StateViewModelBinder<Event, State>(viewModel) {
-
-    fun onEvent(event: Event) {
-        viewModel.accept(event)
-    }
+    dispatchersProvider: DispatchersProvider,
+) : StateViewModelBinder<Event, State>(
+    viewModel = viewModel,
+    mainImmediateCoroutineDispatcher = dispatchersProvider.main,
+) {
+    fun onEvent(event: Event) = viewModel.accept(event)
 }

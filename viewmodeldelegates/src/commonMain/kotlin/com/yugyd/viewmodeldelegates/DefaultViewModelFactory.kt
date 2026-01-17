@@ -9,14 +9,14 @@ class DefaultViewModelFactory : ViewModelFactory {
         viewModelDelegates: Set<ViewModelDelegate<Event, State>>,
         initEvents: Set<Event>,
         autoInit: Boolean,
-        mainCoroutineDispatcher: CoroutineDispatcher,
+        mainImmediateCoroutineDispatcher: CoroutineDispatcher,
         logger: ViewModelLogger?,
         name: String?,
     ): ViewModel<Event, State> = DefaultViewModelDelegatesImpl(
         initialState = initialState,
         viewModelDelegates = viewModelDelegates,
         initEvents = initEvents,
-        mainCoroutineDispatcher = mainCoroutineDispatcher,
+        mainImmediateCoroutineDispatcher = mainImmediateCoroutineDispatcher,
         logger = logger,
         name = name,
     ).apply {

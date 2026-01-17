@@ -1,7 +1,6 @@
 package com.yugyd.viewmodeldelegates
 
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 
 interface ViewModelFactory {
 
@@ -10,7 +9,7 @@ interface ViewModelFactory {
         viewModelDelegates: Set<ViewModelDelegate<Event, State>>,
         initEvents: Set<Event> = emptySet(),
         autoInit: Boolean = true,
-        mainCoroutineDispatcher: CoroutineDispatcher = Dispatchers.Main.immediate,
+        mainImmediateCoroutineDispatcher: CoroutineDispatcher,
         logger: ViewModelLogger? = null,
         name: String? = null,
     ): ViewModel<Event, State>

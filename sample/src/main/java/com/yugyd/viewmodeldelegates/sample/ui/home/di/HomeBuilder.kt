@@ -11,6 +11,7 @@ import com.yugyd.viewmodeldelegates.sample.ui.home.domain.OnActionClickedViewMod
 import com.yugyd.viewmodeldelegates.sample.ui.home.domain.OnNavigationHandledViewModelDelegate
 import com.yugyd.viewmodeldelegates.sample.ui.home.domain.OnSnackbarDismissedViewModelDelegate
 import com.yugyd.viewmodeldelegates.sample.ui.home.domain.data.HomeRepositoryImpl
+import com.yugyd.viewmodeldelegates.sample.ui.home.ui.DispatchersProviderImpl
 import com.yugyd.viewmodeldelegates.sample.ui.home.ui.HomeBinder
 import com.yugyd.viewmodeldelegates.sample.ui.home.ui.HomeMapper
 
@@ -29,6 +30,8 @@ fun buildHomeBinder(): HomeBinder {
         userName = "Default User",
     )
 
+    val dispatchersProvider = DispatchersProviderImpl()
+
     val repository = HomeRepositoryImpl()
 
     val delegates = setOf(
@@ -45,10 +48,12 @@ fun buildHomeBinder(): HomeBinder {
             initEvents = setOf(Event.LoadData),
             logger = buildLogger(),
             name = "HomeViewModel",
+            mainImmediateCoroutineDispatcher = dispatchersProvider.main,
         ) {}
     val mapper = HomeMapper()
     return HomeBinder(
         viewModel = viewModel,
         mapper = mapper,
+        dispatchersProvider = dispatchersProvider,
     )
 }
